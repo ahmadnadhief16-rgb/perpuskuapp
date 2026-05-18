@@ -2,17 +2,39 @@ import 'package:flutter/material.dart';
 import '../models/buku.dart';
 
 class BukuService extends ChangeNotifier {
-  final List<Buku> _daftarBuku = [];
 
-  List<Buku> get daftarBuku => _daftarBuku;
+  final List<Buku> daftarBuku = [];
+
+  bool isDarkMode = false; // 👈 WAJIB INI
+
+  void toggleDarkMode() {
+    isDarkMode = !isDarkMode;
+    notifyListeners();
+  }
 
   void tambahBuku(Buku buku) {
-    _daftarBuku.add(buku);
+    daftarBuku.add(buku);
     notifyListeners();
   }
 
   void hapusBuku(int index) {
-    _daftarBuku.removeAt(index);
+    daftarBuku.removeAt(index);
+    notifyListeners();
+  }
+
+  void pinjamBuku(int index) {
+    daftarBuku[index].dipinjam = true;
+    notifyListeners();
+  }
+
+  void kembalikanBuku(int index) {
+    daftarBuku[index].dipinjam = false;
+    notifyListeners();
+  }
+
+  void favoritBuku(int index) {
+    daftarBuku[index].favorit =
+        !daftarBuku[index].favorit;
     notifyListeners();
   }
 }

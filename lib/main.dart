@@ -7,7 +7,7 @@ import 'services/buku_service.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => BukuService(),
+      create: (_) => BukuService(),
       child: const MyApp(),
     ),
   );
@@ -18,10 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final bukuService =
+        Provider.of<BukuService>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Perpusku App',
-      home: HomePage(),
+
+      theme: bukuService.isDarkMode
+          ? ThemeData.dark()
+          : ThemeData.light(),
+
+      home: const HomePage(),
     );
   }
 }

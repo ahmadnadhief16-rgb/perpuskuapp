@@ -4,61 +4,169 @@ import 'package:provider/provider.dart';
 import '../models/buku.dart';
 import '../services/buku_service.dart';
 
-class TambahBukuPage extends StatelessWidget {
+class TambahBukuPage
+    extends StatelessWidget {
+
   TambahBukuPage({super.key});
 
-  final judulController = TextEditingController();
-  final penulisController = TextEditingController();
-  final kategoriController = TextEditingController();
+  final judulController =
+      TextEditingController();
+
+  final penulisController =
+      TextEditingController();
+
+  final kategoriController =
+      TextEditingController();
+
+  final coverController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       appBar: AppBar(
-        title: const Text('Tambah Buku'),
+
+        title: const Text(
+          'Tambah Buku',
+        ),
       ),
 
       body: Padding(
-        padding: const EdgeInsets.all(20),
+
+        padding:
+            const EdgeInsets.all(20),
+
         child: Column(
+
           children: [
+
             TextField(
-              controller: judulController,
-              decoration: const InputDecoration(
-                labelText: 'Judul Buku',
+
+              controller:
+                  judulController,
+
+              decoration:
+                  const InputDecoration(
+
+                labelText:
+                    'Judul Buku',
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(
+              height: 10,
+            ),
 
             TextField(
-              controller: penulisController,
-              decoration: const InputDecoration(
-                labelText: 'Penulis',
+
+              controller:
+                  penulisController,
+
+              decoration:
+                  const InputDecoration(
+
+                labelText:
+                    'Penulis',
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(
+              height: 10,
+            ),
 
             TextField(
-              controller: kategoriController,
-              decoration: const InputDecoration(
-                labelText: 'Kategori',
+
+              controller:
+                  kategoriController,
+
+              decoration:
+                  const InputDecoration(
+
+                labelText:
+                    'Kategori',
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 10,
+            ),
 
-            ElevatedButton(
-              onPressed: () {
-                final buku = Buku(
-                  judul: judulController.text,
-                  penulis: penulisController.text,
-                  kategori: kategoriController.text,
-                );
+            TextField(
 
-                Provider.of<BukuService>(context, listen: false)
-                    .tambahBuku(buku);
+              controller:
+                  coverController,
 
-                Navigator.pop(context);
+              decoration:
+                  const InputDecoration(
+
+                labelText:
+                    'URL Cover Buku',
+              ),
+            ),
+
+            const SizedBox(
+              height: 20,
+            ),
+
+            SizedBox(
+
+              width:
+                  double.infinity,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  final buku = Buku(
+
+                    judul:
+                        judulController.text,
+
+                    penulis:
+                        penulisController.text,
+
+                    kategori:
+                        kategoriController.text,
+
+                    cover:
+                        coverController.text,
+                  );
+
+                  Provider.of<BukuService>(
+
+                    context,
+
+                    listen: false,
+
+                  ).tambahBuku(buku);
+
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(
+
+                    const SnackBar(
+
+                      content: Text(
+                        'Buku berhasil ditambahkan',
+                      ),
+                    ),
+                  );
+
+                  Navigator.pop(
+                    context,
+                  );
+                },
+
+                child: const Text(
+                  'Simpan Buku',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
